@@ -20,13 +20,13 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(300, 300)) {
                    onClick = {
                        count.value++
                    }) {
-                Text(if (count.value == 0) "Hello World" else "Clicked ${count.value}!")
+                BasicText(if (count.value == 0) "Hello World" else "Clicked ${count.value}!")
             }
             Button(modifier = Modifier.align(Alignment.CenterHorizontally),
                    onClick = {
                        count.value = 0
                     }) {
-                Text("Reset")
+                BasicText("Reset")
             }
         }
     }
