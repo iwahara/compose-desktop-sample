@@ -1,4 +1,5 @@
 import org.jetbrains.compose.compose
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("jvm") version "1.4.0"
@@ -17,5 +18,9 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+        }
     }
 }
