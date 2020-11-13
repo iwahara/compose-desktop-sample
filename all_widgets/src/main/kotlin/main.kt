@@ -1,14 +1,12 @@
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -116,11 +114,43 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                     })
                     BasicText(textField.value)
                 }
-
+                Divider()
+                Card {
+                    BasicText("カードだよ")
+                }
+                //NoSuchMethodErrorが出るのでコメントアウト
+                //DropdownDemo()
             }
         }
 
     }
 
+}
+
+@Composable
+fun DropdownDemo() {
+    val items = listOf("A", "B", "C", "D", "E", "F")
+    val disabledValue = "B"
+    var showMenu = remember { mutableStateOf(false) }
+    var selectedIndex = remember { mutableStateOf(0) }
+
+    DropdownMenu(
+            toggle = {
+                Text(items[selectedIndex.value], modifier = Modifier.fillMaxWidth().clickable(onClick = { showMenu.value = true }))
+            },
+            expanded = showMenu.value,
+            onDismissRequest = { showMenu.value = false },
+    ) {
+        items.forEachIndexed { index, s ->
+            DropdownMenuItem(
+                    onClick = {
+                        selectedIndex.value = index
+                        showMenu.value = false
+                    }
+            ) {
+                Text(text = s)
+            }
+        }
+    }
 }
 
