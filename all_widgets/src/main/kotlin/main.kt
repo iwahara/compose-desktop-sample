@@ -16,8 +16,6 @@ import androidx.compose.ui.unit.dp
 
 fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 
-    val count = remember { mutableStateOf(0) }
-    val checked = remember { mutableStateOf(true) }
     val fabCount = remember { mutableStateOf(0) }
     val selected = remember { mutableStateOf(true) }
     val sliderVal = remember { mutableStateOf(0.5f) }
@@ -51,25 +49,8 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                 drawerContent = { Text(text = "drawerContent") },
         ) {
             Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
-                Row {
-                    Text("Clicked ${count.value}!")
-                    LinearProgressIndicator(progress = count.value * 0.01f, modifier = Modifier.align(Alignment.CenterVertically))
-                }
-                Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Button(modifier = Modifier.align(Alignment.CenterHorizontally),
-                            onClick = {
-                                count.value++
-                            }) {
-                        Text("ボタンを押すよ！")
-                    }
-                }
-                Row {
-                    Checkbox(checked = checked.value,
-                            onCheckedChange = {
-                                checked.value = it
-                            })
-                    Text(if (checked.value) "チェック済み！" else "チェックなし！")
-                }
+                LinearProgressBarSample()
+                CheckBoxSample()
                 Row {
                     Text("FAB Clicked ${fabCount.value}!")
 
@@ -127,6 +108,35 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 
     }
 
+}
+
+@Composable
+fun CheckBoxSample() {
+    val checked = remember { mutableStateOf(true) }
+    Row {
+        Checkbox(checked = checked.value,
+                onCheckedChange = {
+                    checked.value = it
+                })
+        Text(if (checked.value) "チェック済み！" else "チェックなし！")
+    }
+}
+
+@Composable
+fun LinearProgressBarSample() {
+    val count = remember { mutableStateOf(0) }
+    Row {
+        Text("Clicked ${count.value}!")
+        LinearProgressIndicator(progress = count.value * 0.01f, modifier = Modifier.align(Alignment.CenterVertically))
+    }
+    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+        Button(modifier = Modifier.align(Alignment.CenterHorizontally),
+                onClick = {
+                    count.value++
+                }) {
+            Text("ボタンを押すよ！")
+        }
+    }
 }
 
 @Composable
