@@ -32,7 +32,7 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                     TopAppBar(
                             title = { Text("タイトル") },
                             navigationIcon = {
-                                Icon(asset = Icons.Filled.Menu, modifier = Modifier.clickable(onClick =
+                                Icon(imageVector = Icons.Filled.Menu, modifier = Modifier.clickable(onClick =
                                 {
                                     scaffoldState.drawerState.open() // or toggle
                                 }))
@@ -44,7 +44,7 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                             onClick = {
                                 fabCount.value++
                             }) {
-                        Icon(asset = Icons.Filled.Add)
+                        Icon(imageVector = Icons.Filled.Add)
                     }
                 },
                 floatingActionButtonPosition = FabPosition.End,
