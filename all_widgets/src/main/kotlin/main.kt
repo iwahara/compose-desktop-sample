@@ -58,7 +58,6 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 TextFieldSample()
                 Divider()
                 CardSample()
-                //NoSuchMethodErrorが出るよ
                 DropdownDemo()
             }
         }
