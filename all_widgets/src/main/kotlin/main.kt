@@ -14,14 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
-fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
-
+fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600, 600)) {
     val fabCount = remember { mutableStateOf(0) }
 
-    val sliderVal = remember { mutableStateOf(0.5f) }
-    val snackBarVisibleState = remember { mutableStateOf(false) }
-    val switchChecked = remember { mutableStateOf(false) }
-    val textField = remember { mutableStateOf("") }
     val scaffoldState = rememberScaffoldState()
     DesktopMaterialTheme {
         Scaffold(
@@ -57,45 +52,12 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                     CircularProgressIndicator(progress = fabCount.value * 0.01f)
                 }
                 RadioButtonSample()
-                Row {
-                    Slider(value = sliderVal.value, onValueChange = {
-                        sliderVal.value = it
-                    }, modifier = Modifier.weight(1f))
-                    Text("Slider ${sliderVal.value}", modifier = Modifier.weight(1f))
-                }
-                Button(onClick = { snackBarVisibleState.value = !snackBarVisibleState.value }) {
-                    if (snackBarVisibleState.value) {
-                        Text("Snackbarを隠す")
-                    } else {
-                        Text("Snackbarを表示")
-                    }
-                }
-                if (snackBarVisibleState.value) {
-                    Snackbar(
-                            text = { Text(text = "スナックバーやでー!") },
-                            action = {
-                                Button(onClick = {}) {
-                                    Text("ボタンだよ")
-                                }
-                            },
-                    )
-                }
-                Row {
-                    Switch(checked = switchChecked.value, onCheckedChange = {
-                        switchChecked.value = it
-                    })
-                    Text(if (switchChecked.value) "チェック済み！" else "チェックなし！")
-                }
-                Row {
-                    TextField(value = textField.value, onValueChange = {
-                        textField.value = it
-                    })
-                    Text(textField.value)
-                }
+                SliderSample()
+                SnackBarSample()
+                SwitchSample()
+                TextFieldSample()
                 Divider()
-                Card {
-                    Text("カードだよ")
-                }
+                CardSample()
                 //NoSuchMethodErrorが出るよ
                 DropdownDemo()
             }
@@ -103,6 +65,68 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 
     }
 
+}
+
+@Composable
+fun CardSample() {
+    Card {
+        Text("カードだよ")
+    }
+}
+
+@Composable
+fun TextFieldSample() {
+    val textField = remember { mutableStateOf("") }
+    Row {
+        TextField(value = textField.value, onValueChange = {
+            textField.value = it
+        })
+        Text(textField.value)
+    }
+}
+
+@Composable
+fun SwitchSample() {
+    val switchChecked = remember { mutableStateOf(false) }
+    Row {
+        Switch(checked = switchChecked.value, onCheckedChange = {
+            switchChecked.value = it
+        })
+        Text(if (switchChecked.value) "チェック済み！" else "チェックなし！")
+    }
+}
+
+@Composable
+fun SnackBarSample() {
+    val snackBarVisibleState = remember { mutableStateOf(false) }
+    Button(onClick = { snackBarVisibleState.value = !snackBarVisibleState.value }) {
+        if (snackBarVisibleState.value) {
+            Text("Snackbarを隠す")
+        } else {
+            Text("Snackbarを表示")
+        }
+    }
+    if (snackBarVisibleState.value) {
+        Snackbar(
+                text = { Text(text = "スナックバーやでー!") },
+                action = {
+                    Button(onClick = {}) {
+                        Text("ボタンだよ")
+                    }
+                },
+        )
+    }
+}
+
+@Composable
+fun SliderSample() {
+    val sliderVal = remember { mutableStateOf(0.5f) }
+    Row {
+        Slider(value = sliderVal.value, onValueChange = {
+            sliderVal.value = it
+        }, modifier = Modifier.weight(1f))
+        Text("Slider ${sliderVal.value}", modifier = Modifier.weight(1f))
+    }
 }
 
 @Composable
