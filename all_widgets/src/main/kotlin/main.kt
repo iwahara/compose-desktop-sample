@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 
     val fabCount = remember { mutableStateOf(0) }
-    val selected = remember { mutableStateOf(true) }
+
     val sliderVal = remember { mutableStateOf(0.5f) }
     val snackBarVisibleState = remember { mutableStateOf(false) }
     val switchChecked = remember { mutableStateOf(false) }
@@ -56,12 +56,7 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 
                     CircularProgressIndicator(progress = fabCount.value * 0.01f)
                 }
-                Row {
-                    RadioButton(selected = selected.value, onClick = {
-                        selected.value = !selected.value
-                    })
-                    Text(if (selected.value) "選択済み！" else "選択なし！")
-                }
+                RadioButtonSample()
                 Row {
                     Slider(value = sliderVal.value, onValueChange = {
                         sliderVal.value = it
@@ -108,6 +103,17 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 
     }
 
+}
+
+@Composable
+fun RadioButtonSample() {
+    val selected = remember { mutableStateOf(true) }
+    Row {
+        RadioButton(selected = selected.value, onClick = {
+            selected.value = !selected.value
+        })
+        Text(if (selected.value) "選択済み！" else "選択なし！")
+    }
 }
 
 @Composable
