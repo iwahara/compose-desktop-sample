@@ -1,7 +1,7 @@
+import androidx.compose.desktop.DesktopMaterialTheme
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
 fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
+
     val count = remember { mutableStateOf(0) }
     val checked = remember { mutableStateOf(true) }
     val fabCount = remember { mutableStateOf(0) }
@@ -24,12 +25,12 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
     val switchChecked = remember { mutableStateOf(false) }
     val textField = remember { mutableStateOf("") }
     val scaffoldState = rememberScaffoldState()
-    MaterialTheme {
+    DesktopMaterialTheme {
         Scaffold(
                 scaffoldState = scaffoldState,
                 topBar = {
                     TopAppBar(
-                            title = { BasicText("タイトル") },
+                            title = { Text("タイトル") },
                             navigationIcon = {
                                 Icon(asset = Icons.Filled.Menu, modifier = Modifier.clickable(onClick =
                                 {
@@ -51,7 +52,7 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
         ) {
             Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
                 Row {
-                    BasicText("Clicked ${count.value}!")
+                    Text("Clicked ${count.value}!")
                     LinearProgressIndicator(progress = count.value * 0.01f, modifier = Modifier.align(Alignment.CenterVertically))
                 }
 
@@ -59,17 +60,17 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                         onClick = {
                             count.value++
                         }) {
-                    BasicText("ボタンを押すよ！")
+                    Text("ボタンを押すよ！")
                 }
                 Row {
                     Checkbox(checked = checked.value,
                             onCheckedChange = {
                                 checked.value = it
                             })
-                    BasicText(if (checked.value) "チェック済み！" else "チェックなし！")
+                    Text(if (checked.value) "チェック済み！" else "チェックなし！")
                 }
                 Row {
-                    BasicText("FAB Clicked ${fabCount.value}!")
+                    Text("FAB Clicked ${fabCount.value}!")
 
                     CircularProgressIndicator(progress = fabCount.value * 0.01f)
                 }
@@ -77,13 +78,13 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                     RadioButton(selected = selected.value, onClick = {
                         selected.value = !selected.value
                     })
-                    BasicText(if (selected.value) "選択済み！" else "選択なし！")
+                    Text(if (selected.value) "選択済み！" else "選択なし！")
                 }
                 Row {
                     Slider(value = sliderVal.value, onValueChange = {
                         sliderVal.value = it
                     }, modifier = Modifier.weight(1f))
-                    BasicText("Slider ${sliderVal.value}", modifier = Modifier.weight(1f))
+                    Text("Slider ${sliderVal.value}", modifier = Modifier.weight(1f))
                 }
                 Button(onClick = { snackBarVisibleState.value = !snackBarVisibleState.value }) {
                     if (snackBarVisibleState.value) {
@@ -106,19 +107,19 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                     Switch(checked = switchChecked.value, onCheckedChange = {
                         switchChecked.value = it
                     })
-                    BasicText(if (switchChecked.value) "チェック済み！" else "チェックなし！")
+                    Text(if (switchChecked.value) "チェック済み！" else "チェックなし！")
                 }
                 Row {
                     TextField(value = textField.value, onValueChange = {
                         textField.value = it
                     })
-                    BasicText(textField.value)
+                    Text(textField.value)
                 }
                 Divider()
                 Card {
-                    BasicText("カードだよ")
+                    Text("カードだよ")
                 }
-                //NoSuchMethodErrorが出るのでコメントアウト
+                //NoSuchMethodErrorが出るよ
                 //DropdownDemo()
             }
         }
