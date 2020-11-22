@@ -120,7 +120,7 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                     Text("カードだよ")
                 }
                 //NoSuchMethodErrorが出るよ
-                //DropdownDemo()
+                DropdownDemo()
             }
         }
 
