@@ -132,8 +132,8 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 fun DropdownDemo() {
     val items = listOf("A", "B", "C", "D", "E", "F")
     val disabledValue = "B"
-    var showMenu = remember { mutableStateOf(false) }
-    var selectedIndex = remember { mutableStateOf(0) }
+    val showMenu = remember { mutableStateOf(false) }
+    val selectedIndex = remember { mutableStateOf(0) }
 
     DropdownMenu(
             toggle = {
