@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -30,13 +29,26 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
         Scaffold(
                 scaffoldState = scaffoldState,
                 topBar = {
-                    topAppBar(scaffoldState)
+                    TopAppBar(
+                            title = { Text("タイトル") },
+                            navigationIcon = {
+                                Icon(imageVector = Icons.Filled.Menu, modifier = Modifier.clickable(onClick =
+                                {
+                                    scaffoldState.drawerState.open() // or toggle
+                                }))
+                            },
+                    )
                 },
                 floatingActionButton = {
-                    floatingActionButton(fabCount)
+                    FloatingActionButton(
+                            onClick = {
+                                fabCount.value++
+                            }) {
+                        Icon(imageVector = Icons.Filled.Add)
+                    }
                 },
                 floatingActionButtonPosition = FabPosition.End,
-                drawerContent = { drawerContent() },
+                drawerContent = { Text(text = "drawerContent") },
         ) {
             Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
                 Row {
@@ -115,34 +127,6 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
 
     }
 
-}
-
-@Composable
-fun drawerContent() {
-    Text(text = "drawerContent")
-}
-
-@Composable
-fun floatingActionButton(fabCount: MutableState<Int>) {
-    FloatingActionButton(
-            onClick = {
-                fabCount.value++
-            }) {
-        Icon(imageVector = Icons.Filled.Add)
-    }
-}
-
-@Composable
-fun topAppBar(scaffoldState: ScaffoldState) {
-    TopAppBar(
-            title = { Text("タイトル") },
-            navigationIcon = {
-                Icon(imageVector = Icons.Filled.Menu, modifier = Modifier.clickable(onClick =
-                {
-                    scaffoldState.drawerState.open() // or toggle
-                }))
-            },
-    )
 }
 
 @Composable
