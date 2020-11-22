@@ -43,12 +43,13 @@ fun main() = Window(title = "Compose for Desktop", size = IntSize(600, 600)) {
                     Text("Clicked ${count.value}!")
                     LinearProgressIndicator(progress = count.value * 0.01f, modifier = Modifier.align(Alignment.CenterVertically))
                 }
-
-                Button(modifier = Modifier.align(Alignment.CenterHorizontally),
-                        onClick = {
-                            count.value++
-                        }) {
-                    Text("ボタンを押すよ！")
+                Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                    Button(modifier = Modifier.align(Alignment.CenterHorizontally),
+                            onClick = {
+                                count.value++
+                            }) {
+                        Text("ボタンを押すよ！")
+                    }
                 }
                 Row {
                     Checkbox(checked = checked.value,
