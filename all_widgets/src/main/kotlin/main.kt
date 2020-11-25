@@ -53,6 +53,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
         ) {
             Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
                 TextSample()
+                CardSample()
                 LinearProgressBarSample()
                 CheckBoxSample()
                 Row {
@@ -66,7 +67,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 SwitchSample()
                 TextFieldSample()
                 Divider()
-                CardSample()
+
                 DropdownDemo()
             }
         }
@@ -105,15 +106,31 @@ fun TextSample() {
                         )
                 ))
             }
-
         }
     }
 }
 
 @Composable
 fun CardSample() {
-    Card {
-        Text("カードだよ")
+    val windowState = remember { mutableStateOf(false) }
+
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("Cardのサンプル")
+    }
+    if (windowState.value) {
+        Window(title = "Textのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+                Card(Modifier.fillMaxWidth().padding(8.dp), elevation = 8.dp) {
+                    Text("カードだよ")
+                }
+            }
+        }
+
     }
 }
 
