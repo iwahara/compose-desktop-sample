@@ -11,8 +11,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextIndent
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600, 600)) {
     val fabCount = remember { mutableStateOf(0) }
@@ -44,6 +52,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 drawerContent = { Text(text = "drawerContent") },
         ) {
             Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
+                TextSample()
                 LinearProgressBarSample()
                 CheckBoxSample()
                 Row {
@@ -64,6 +73,41 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
 
     }
 
+}
+
+@Composable
+fun TextSample() {
+    val windowState = remember { mutableStateOf(false) }
+
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("Textのサンプル")
+    }
+    if (windowState.value) {
+        Window(title = "Textのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+                Text("テキスト")
+                Divider()
+                Text(AnnotatedString(
+                        text = "複数のスタイルを割り当てる",
+                        // make "Hello" italic.
+                        spanStyles = listOf(
+                                AnnotatedString.Range(SpanStyle(fontStyle = FontStyle.Italic), 0, 5)
+                        ),
+                        // create two paragraphs with different alignment and indent settings.
+                        paragraphStyles = listOf(
+                                AnnotatedString.Range(ParagraphStyle(textAlign = TextAlign.Center), 0, 6),
+                                AnnotatedString.Range(ParagraphStyle(textIndent = TextIndent(5.sp)), 6, 11)
+                        )
+                ))
+            }
+
+        }
+    }
 }
 
 @Composable
