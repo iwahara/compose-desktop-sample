@@ -191,10 +191,10 @@ fun SwitchSample() {
     Button(onClick = {
         windowState.value = true
     }) {
-        Text("スイッチのサンプル")
+        Text("Switchのサンプル")
     }
     if (windowState.value) {
-        Window(title = "スイッチのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+        Window(title = "Switchのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
                 onDismissRequest = {
                     windowState.value = false
                 }) {
