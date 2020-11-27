@@ -9,7 +9,6 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
@@ -57,21 +56,13 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 SwitchSample()
                 SliderSample()
                 ProgressSample()
-
-                LinearProgressBarSample()
-
-                Row {
-                    Text("FAB Clicked ${fabCount.value}!")
-
-                    CircularProgressIndicator(progress = fabCount.value * 0.01f)
-                }
+                DropdownDemo()
 
                 SnackBarSample()
 
 
                 Divider()
 
-                DropdownDemo()
             }
         }
 
@@ -321,47 +312,50 @@ fun CheckBoxSample() {
     }
 }
 
-@Composable
-fun LinearProgressBarSample() {
-    val count = remember { mutableStateOf(0) }
-    Row {
-        Text("Clicked ${count.value}!")
-        LinearProgressIndicator(progress = count.value * 0.01f, modifier = Modifier.align(Alignment.CenterVertically))
-    }
-    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-        Button(modifier = Modifier.align(Alignment.CenterHorizontally),
-                onClick = {
-                    count.value++
-                }) {
-            Text("ボタンを押すよ！")
-        }
-    }
-}
 
 @Composable
 fun DropdownDemo() {
+
+    val windowState = remember { mutableStateOf(false) }
+
     val items = listOf("A", "B", "C", "D", "E", "F")
     val disabledValue = "B"
     val showMenu = remember { mutableStateOf(false) }
     val selectedIndex = remember { mutableStateOf(0) }
-
-    DropdownMenu(
-            toggle = {
-                Text(items[selectedIndex.value], modifier = Modifier.fillMaxWidth().clickable(onClick = { showMenu.value = true }))
-            },
-            expanded = showMenu.value,
-            onDismissRequest = { showMenu.value = false },
-    ) {
-        items.forEachIndexed { index, s ->
-            DropdownMenuItem(
-                    onClick = {
-                        selectedIndex.value = index
-                        showMenu.value = false
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("ドロップボックスのサンプル")
+    }
+    if (windowState.value) {
+        Window(title = "ドロップボックスのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+                DropdownMenu(
+                        toggle = {
+                            Text(items[selectedIndex.value], modifier = Modifier.fillMaxWidth().clickable(onClick = { showMenu.value = true }))
+                        },
+                        expanded = showMenu.value,
+                        onDismissRequest = { showMenu.value = false },
+                ) {
+                    items.forEachIndexed { index, s ->
+                        DropdownMenuItem(
+                                onClick = {
+                                    selectedIndex.value = index
+                                    showMenu.value = false
+                                }
+                        ) {
+                            Text(text = s)
+                        }
                     }
-            ) {
-                Text(text = s)
+                }
             }
         }
+
     }
+
+
 }
 
