@@ -16,15 +16,13 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600, 600)) {
     val fabCount = remember { mutableStateOf(0) }
-
+    val textField = remember { mutableStateOf("") }
     val scaffoldState = rememberScaffoldState()
     DesktopMaterialTheme {
         Scaffold(
@@ -54,8 +52,11 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
             Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
                 TextSample()
                 CardSample()
-                LinearProgressBarSample()
+                TextFieldSample()
                 CheckBoxSample()
+                
+                LinearProgressBarSample()
+
                 Row {
                     Text("FAB Clicked ${fabCount.value}!")
 
@@ -65,7 +66,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 SliderSample()
                 SnackBarSample()
                 SwitchSample()
-                TextFieldSample()
+
                 Divider()
 
                 DropdownDemo()
@@ -102,7 +103,7 @@ fun TextSample() {
                         // create two paragraphs with different alignment and indent settings.
                         paragraphStyles = listOf(
                                 AnnotatedString.Range(ParagraphStyle(textAlign = TextAlign.Center), 0, 6),
-                                AnnotatedString.Range(ParagraphStyle(textIndent = TextIndent(5.sp)), 6, 11)
+                                //AnnotatedString.Range(ParagraphStyle(textIndent = TextIndent(5.sp)), 6, 11)
                         )
                 ))
             }
@@ -136,13 +137,33 @@ fun CardSample() {
 
 @Composable
 fun TextFieldSample() {
+    val windowState = remember { mutableStateOf(false) }
     val textField = remember { mutableStateOf("") }
-    Row {
-        TextField(value = textField.value, onValueChange = {
-            textField.value = it
-        })
-        Text(textField.value)
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("TextFieldのサンプル")
     }
+    if (windowState.value) {
+        Window(title = "TextFieldのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100),
+                centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+
+            Column {
+                TextField(value = textField.value, onValueChange = {
+                    textField.value = it
+                }, label = {
+                    Text("ラベル")
+                }, placeholder = {
+                    Text("プレースホルダー")
+                })
+                Text(textField.value)
+            }
+        }
+    }
+
 }
 
 @Composable
@@ -202,13 +223,27 @@ fun RadioButtonSample() {
 
 @Composable
 fun CheckBoxSample() {
+    val windowState = remember { mutableStateOf(false) }
     val checked = remember { mutableStateOf(true) }
-    Row {
-        Checkbox(checked = checked.value,
-                onCheckedChange = {
-                    checked.value = it
-                })
-        Text(if (checked.value) "チェック済み！" else "チェックなし！")
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("チェックボックスのサンプル")
+    }
+    if (windowState.value) {
+        Window(title = "チェックボックスのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+                Checkbox(checked = checked.value,
+                        onCheckedChange = {
+                            checked.value = it
+                        })
+                Text(if (checked.value) "チェック済み！" else "チェックなし！")
+            }
+        }
+
     }
 }
 
