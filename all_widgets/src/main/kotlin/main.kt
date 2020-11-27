@@ -56,6 +56,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 RadioButtonSample()
                 SwitchSample()
                 SliderSample()
+                ProgressSample()
 
                 LinearProgressBarSample()
 
@@ -76,6 +77,34 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
 
     }
 
+}
+
+@Composable
+fun ProgressSample() {
+    val windowState = remember { mutableStateOf(false) }
+    val progress = remember { mutableStateOf(0f) }
+
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("プログレスバーのサンプル")
+    }
+    if (windowState.value) {
+        Window(title = "プログレスバーのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+                Text("progress ${progress.value}")
+                Slider(value = progress.value, onValueChange = {
+                    progress.value = it
+                })
+                LinearProgressIndicator(progress = progress.value)
+                CircularProgressIndicator(progress = progress.value)
+            }
+        }
+
+    }
 }
 
 @Composable
