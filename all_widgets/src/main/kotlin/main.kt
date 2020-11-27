@@ -75,10 +75,10 @@ fun ProgressSample() {
     Button(onClick = {
         windowState.value = true
     }) {
-        Text("プログレスバーのサンプル")
+        Text("Progressのサンプル")
     }
     if (windowState.value) {
-        Window(title = "プログレスバーのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+        Window(title = "Progressのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
                 onDismissRequest = {
                     windowState.value = false
                 }) {
@@ -139,7 +139,7 @@ fun CardSample() {
         Text("Cardのサンプル")
     }
     if (windowState.value) {
-        Window(title = "Textのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+        Window(title = "Cardのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
                 onDismissRequest = {
                     windowState.value = false
                 }) {
@@ -239,10 +239,10 @@ fun SliderSample() {
     Button(onClick = {
         windowState.value = true
     }) {
-        Text("スライダーのサンプル")
+        Text("Sliderのサンプル")
     }
     if (windowState.value) {
-        Window(title = "スライダーのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+        Window(title = "Sliderのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
                 onDismissRequest = {
                     windowState.value = false
                 }) {
@@ -264,10 +264,10 @@ fun RadioButtonSample() {
     Button(onClick = {
         windowState.value = true
     }) {
-        Text("ラジオボタンのサンプル")
+        Text("RadioButtonのサンプル")
     }
     if (windowState.value) {
-        Window(title = "ラジオボタンのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+        Window(title = "RadioButtonのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
                 onDismissRequest = {
                     windowState.value = false
                 }) {
@@ -290,10 +290,10 @@ fun CheckBoxSample() {
     Button(onClick = {
         windowState.value = true
     }) {
-        Text("チェックボックスのサンプル")
+        Text("CheckBoxのサンプル")
     }
     if (windowState.value) {
-        Window(title = "チェックボックスのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+        Window(title = "CheckBoxのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
                 onDismissRequest = {
                     windowState.value = false
                 }) {
@@ -322,10 +322,10 @@ fun DropdownDemo() {
     Button(onClick = {
         windowState.value = true
     }) {
-        Text("ドロップボックスのサンプル")
+        Text("DropdownMenuのサンプル")
     }
     if (windowState.value) {
-        Window(title = "ドロップボックスのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+        Window(title = "DropdownMenuのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
                 onDismissRequest = {
                     windowState.value = false
                 }) {
