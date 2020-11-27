@@ -60,9 +60,6 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
 
                 SnackBarSample()
 
-
-                Divider()
-
             }
         }
 
