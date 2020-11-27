@@ -54,7 +54,8 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 CardSample()
                 TextFieldSample()
                 CheckBoxSample()
-                
+                RadioButtonSample()
+
                 LinearProgressBarSample()
 
                 Row {
@@ -62,7 +63,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
 
                     CircularProgressIndicator(progress = fabCount.value * 0.01f)
                 }
-                RadioButtonSample()
+
                 SliderSample()
                 SnackBarSample()
                 SwitchSample()
@@ -212,12 +213,27 @@ fun SliderSample() {
 
 @Composable
 fun RadioButtonSample() {
+    val windowState = remember { mutableStateOf(false) }
     val selected = remember { mutableStateOf(true) }
-    Row {
-        RadioButton(selected = selected.value, onClick = {
-            selected.value = !selected.value
-        })
-        Text(if (selected.value) "選択済み！" else "選択なし！")
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("ラジオボタンのサンプル")
+    }
+    if (windowState.value) {
+        Window(title = "ラジオボタンのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+
+                RadioButton(selected = selected.value, onClick = {
+                    selected.value = !selected.value
+                })
+                Text(if (selected.value) "選択済み！" else "選択なし！")
+            }
+        }
+
     }
 }
 
