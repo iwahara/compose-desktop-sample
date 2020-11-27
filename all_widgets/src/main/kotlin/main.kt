@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 
 fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600, 600)) {
     val fabCount = remember { mutableStateOf(0) }
-    val textField = remember { mutableStateOf("") }
     val scaffoldState = rememberScaffoldState()
     DesktopMaterialTheme {
         Scaffold(
@@ -55,6 +54,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 TextFieldSample()
                 CheckBoxSample()
                 RadioButtonSample()
+                SwitchSample()
 
                 LinearProgressBarSample()
 
@@ -66,7 +66,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
 
                 SliderSample()
                 SnackBarSample()
-                SwitchSample()
+
 
                 Divider()
 
@@ -169,13 +169,28 @@ fun TextFieldSample() {
 
 @Composable
 fun SwitchSample() {
+    val windowState = remember { mutableStateOf(false) }
     val switchChecked = remember { mutableStateOf(false) }
-    Row {
-        Switch(checked = switchChecked.value, onCheckedChange = {
-            switchChecked.value = it
-        })
-        Text(if (switchChecked.value) "チェック済み！" else "チェックなし！")
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("スイッチのサンプル")
     }
+    if (windowState.value) {
+        Window(title = "スイッチのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+                Switch(checked = switchChecked.value, onCheckedChange = {
+                    switchChecked.value = it
+                })
+                Text(if (switchChecked.value) "チェック済み！" else "チェックなし！")
+            }
+        }
+
+    }
+
 }
 
 @Composable
