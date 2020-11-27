@@ -55,6 +55,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 CheckBoxSample()
                 RadioButtonSample()
                 SwitchSample()
+                SliderSample()
 
                 LinearProgressBarSample()
 
@@ -64,7 +65,6 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                     CircularProgressIndicator(progress = fabCount.value * 0.01f)
                 }
 
-                SliderSample()
                 SnackBarSample()
 
 
@@ -217,12 +217,26 @@ fun SnackBarSample() {
 
 @Composable
 fun SliderSample() {
+    val windowState = remember { mutableStateOf(false) }
     val sliderVal = remember { mutableStateOf(0.5f) }
-    Row {
-        Slider(value = sliderVal.value, onValueChange = {
-            sliderVal.value = it
-        }, modifier = Modifier.weight(1f))
-        Text("Slider ${sliderVal.value}", modifier = Modifier.weight(1f))
+    Button(onClick = {
+        windowState.value = true
+    }) {
+        Text("スライダーのサンプル")
+    }
+    if (windowState.value) {
+        Window(title = "スライダーのサンプル", size = IntSize(600, 600), location = IntOffset(100, 100), centered = false,
+                onDismissRequest = {
+                    windowState.value = false
+                }) {
+            Column {
+                Slider(value = sliderVal.value, onValueChange = {
+                    sliderVal.value = it
+                }, modifier = Modifier.weight(1f))
+                Text("Slider ${sliderVal.value}", modifier = Modifier.weight(1f))
+            }
+        }
+
     }
 }
 
