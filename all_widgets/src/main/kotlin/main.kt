@@ -316,7 +316,6 @@ fun DropdownDemo() {
     val windowState = remember { mutableStateOf(false) }
 
     val items = listOf("A", "B", "C", "D", "E", "F")
-    val disabledValue = "B"
     val showMenu = remember { mutableStateOf(false) }
     val selectedIndex = remember { mutableStateOf(0) }
     Button(onClick = {
@@ -352,7 +351,5 @@ fun DropdownDemo() {
         }
 
     }
-
-
 }
 
