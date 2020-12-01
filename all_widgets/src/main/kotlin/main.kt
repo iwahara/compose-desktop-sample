@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
@@ -18,10 +19,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
-fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600, 600)) {
+@ExperimentalMaterialApi
+fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600, 700)) {
     val fabCount = remember { mutableStateOf(0) }
     val scaffoldState = rememberScaffoldState()
+
     DesktopMaterialTheme {
         Scaffold(
                 scaffoldState = scaffoldState,
@@ -58,7 +62,7 @@ fun main() = Window(title = "ウィンドウのタイトル", size = IntSize(600
                 ProgressSample()
                 DropdownDemo()
 
-                SnackBarSample()
+                SnackBarSample(scaffoldState)
 
             }
         }
@@ -210,25 +214,25 @@ fun SwitchSample() {
 
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun SnackBarSample() {
+fun SnackBarSample(scaffoldState: ScaffoldState) {
     val snackBarVisibleState = remember { mutableStateOf(false) }
-    Button(onClick = { snackBarVisibleState.value = !snackBarVisibleState.value }) {
+    val scope = rememberCoroutineScope()
+    Button(onClick = { snackBarVisibleState.value = true }) {
         if (snackBarVisibleState.value) {
-            Text("Snackbarを隠す")
+            Text("Snackbarが表示されてます")
         } else {
             Text("Snackbarを表示")
         }
     }
     if (snackBarVisibleState.value) {
-        Snackbar(
-                text = { Text(text = "スナックバーやでー!") },
-                action = {
-                    Button(onClick = {}) {
-                        Text("ボタンだよ")
-                    }
-                },
-        )
+        scope.launch {
+            when (scaffoldState.snackbarHostState.showSnackbar("スナックバーやでー", "ボタンだよ")) {
+                SnackbarResult.ActionPerformed -> snackBarVisibleState.value = false
+                SnackbarResult.Dismissed -> snackBarVisibleState.value = false
+            }
+        }
     }
 }
 
@@ -316,7 +320,6 @@ fun DropdownDemo() {
     val windowState = remember { mutableStateOf(false) }
 
     val items = listOf("A", "B", "C", "D", "E", "F")
-    val disabledValue = "B"
     val showMenu = remember { mutableStateOf(false) }
     val selectedIndex = remember { mutableStateOf(0) }
     Button(onClick = {
@@ -352,7 +355,5 @@ fun DropdownDemo() {
         }
 
     }
-
-
 }
 
