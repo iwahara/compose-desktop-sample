@@ -22,6 +22,7 @@ fun main() = Window {
 
             val rows = (0..100).toList()
             val cols = (0..10).toList()
+
             LazyColumnFor(
                 items = rows,
                 modifier = Modifier.fillMaxSize().padding(end = 12.dp, bottom = 12.dp),
@@ -38,7 +39,7 @@ fun main() = Window {
                 adapter = rememberScrollbarAdapter(
                     scrollState = stateVertical,
                     itemCount = rows.size,
-                    averageItemSize = 20.dp // TextBox height + Spacer height
+                    averageItemSize = 20.dp
                 )
             )
             HorizontalScrollbar(
