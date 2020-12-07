@@ -3,7 +3,6 @@ import androidx.compose.desktop.Window
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
-import androidx.compose.foundation.lazy.LazyRowFor
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -18,7 +17,7 @@ fun main() = Window {
     DesktopMaterialTheme {
         Box(modifier = Modifier.fillMaxSize().padding(10.dp)) {
             val stateVertical = rememberLazyListState()
-            val stateHorizontal = rememberLazyListState()
+            val stateHorizontal = rememberScrollState()
 
             val rows = (0..100).toList()
             val cols = (0..10).toList()
@@ -29,8 +28,10 @@ fun main() = Window {
                 state = stateVertical
             ) { r ->
 
-                LazyRowFor(items = cols, state = stateHorizontal) { c ->
-                    TextBox("data_${r}-${c}")
+                ScrollableRow(scrollState = stateHorizontal) {
+                    for (c in cols) {
+                        TextBox("data_${r}-${c}")
+                    }
                 }
             }
 
@@ -43,12 +44,10 @@ fun main() = Window {
                 )
             )
             HorizontalScrollbar(
-                modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth(),
-                adapter = rememberScrollbarAdapter(
-                    scrollState = stateHorizontal,
-                    itemCount = cols.size,
-                    averageItemSize = 80.dp
-                )
+                modifier = Modifier.align(Alignment.BottomStart)
+                    .fillMaxWidth()
+                    .padding(end = 12.dp),
+                adapter = rememberScrollbarAdapter(stateHorizontal)
             )
         }
 
